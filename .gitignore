@@ -116,3 +116,4 @@ doc/
 
 # Environment
 venv/
+venv.old/
