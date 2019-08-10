@@ -1,4 +1,5 @@
 import sys
+import src.vsArray as Array
 
 from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QGridLayout, QFrame, QSplitter, QMainWindow,
                              QApplication, QVBoxLayout, QHBoxLayout, QGraphicsScene, QGraphicsView, QAction,
@@ -17,33 +18,6 @@ class Gui(QMainWindow):
         self.guiHeight = 600
         self.guiMargins = 50
 
-        self.arrayData = [
-            'Donec non justo auctor, efficitur augue sit amet, semper dolor.',
-            'Maecenas in fermentum dolor. Vestibulum porttitor volutpat odio, aliquam suscipit erat volutpat vel. ',
-            'Nulla ac tellus lacus.',
-            'Morbi euismod mi lorem, non placerat tellus iaculis et.',
-            'Ut in feugiat nisl, in fringilla leo.',
-            'In hendrerit blandit velit vitae ullamcorper.',
-            'Mauris varius quam vitae odio sodales, non faucibus arcu mattis.',
-            'Nullam a pretium ex, in hendrerit nulla.',
-            'Donec fermentum purus eget magna fermentum blandit.',
-            'Vestibulum mollis tortor consectetur diam commodo, sagittis gravida diam laoreet.',
-            'Nulla id neque vel diam vestibulum convallis id a felis.',
-            'Quisque ac eros at magna mollis suscipit in vitae turpis.',
-            'Duis sodales mattis scelerisque.',
-            'Phasellus lectus mi, blandit eu feugiat vitae, viverra vel orci.'
-        ]
-        self.arrayProps = {
-            'numElems': 0,
-            'elemWidth': 0,
-            'elemHeight': 0,
-            'totalHeight': 0,
-            'totalWidth': 0,
-            'textMargins': 0,
-            'fontSize': 20,
-            'fontFamily': 'Monospace'
-        }
-
         self._initUI()
 
     def _initUI(self):
@@ -60,7 +34,7 @@ class Gui(QMainWindow):
 
         self._setArrProps()
 
-        self.setGeometry(self.guiX, self.guiY, self.arrayProps['totalWidth'], self.arrayProps['totalHeight'])
+        self.setGeometry(self.guiX, self.guiY, Array.VSArray.props['totalWidth'], Array.VSArray.props['totalHeight'])
         self.setWindowTitle('Visual Structs')
         self.show()
 
@@ -75,14 +49,15 @@ class Gui(QMainWindow):
         return longest
 
     def _setArrProps(self):
-        self.arrayProps['numElems'] = self.arrayData.__len__()
-        self.arrayProps['textMargins'] = int(self.arrayProps['fontSize'] * 0.4)
-        self.arrayProps['elemWidth'] = (((self.arrayProps['fontSize'] * 0.85) * self._longestStr(self.arrayData))
-                                        + (self.arrayProps['textMargins'] * 10))
-        self.arrayProps['elemHeight'] = self.arrayProps['fontSize'] * 2
-        self.arrayProps['totalHeight'] = (self.guiMargins * 2) + (self.arrayProps['elemHeight']
-                                                                  * self.arrayProps['numElems'])
-        self.arrayProps['totalWidth'] = (self.guiMargins * 2) + self.arrayProps['elemWidth']
+        Array.VSArray.props['numElems'] = len(Array.VSArray.data)
+        Array.VSArray.props['textMargins'] = int(Array.VSArray.props['fontSize'] * 0.5)
+        Array.VSArray.props['elemWidth'] = (((Array.VSArray.props['fontSize'] * 0.85)
+                                             * self._longestStr(Array.VSArray.data))
+                                            + (Array.VSArray.props['textMargins'] * 10))
+        Array.VSArray.props['elemHeight'] = Array.VSArray.props['fontSize'] * 2
+        Array.VSArray.props['totalHeight'] = (self.guiMargins * 2) + (Array.VSArray.props['elemHeight']
+                                                                      * Array.VSArray.props['numElems'])
+        Array.VSArray.props['totalWidth'] = (self.guiMargins * 2) + Array.VSArray.props['elemWidth']
 
     def paintEvent(self, event):
         qp = QPainter()
@@ -91,28 +66,27 @@ class Gui(QMainWindow):
         qp.end()
 
     def _drawArray(self, qp):
-        qp.setFont(QFont(self.arrayProps['fontFamily'], self.arrayProps['fontSize']))
-        elemWidth = self.arrayProps['elemWidth']
-        elemHeight = self.arrayProps['elemHeight']
+        qp.setFont(QFont(Array.VSArray.props['fontFamily'], Array.VSArray.props['fontSize']))
+        elemWidth = Array.VSArray.props['elemWidth']
+        elemHeight = Array.VSArray.props['elemHeight']
         margins = self.guiMargins
 
-        def _drawArrElem(x, y, w, h, index, data, col=QColor(0, 0, 0)):
-            col.setNamedColor('#000000')
-            qp.setPen(col)
+        def _drawArrElem(x, y, w, h, index, data):
+            qp.setPen(QColor(0, 0, 0))
             qp.setBrush(QColor(150, 250, 250))
             qp.drawRect(x, y, w, h)
-            margins = self.arrayProps['textMargins']
-            padding = self.arrayProps['fontSize']
+            margins = Array.VSArray.props['textMargins']
+            padding = Array.VSArray.props['fontSize']
             qp.drawText(x + margins, y + margins + (elemHeight / 2), str(index))
             qp.drawLine(x + margins + (padding * 2), y, x + margins + (padding * 2),
                         y + margins + elemHeight)
-            qp.drawText(x + margins + padding + (self.arrayProps['fontSize'] * 2),
+            qp.drawText(x + margins + padding + (Array.VSArray.props['fontSize'] * 2),
                         y + margins + (elemHeight / 2), str(data))
 
         i = 0
-        while i < self.arrayProps['numElems']:
+        while i < Array.VSArray.props['numElems']:
             offset = i * elemHeight
-            _drawArrElem(margins, margins + offset, elemWidth, elemHeight, i, self.arrayData[i])
+            _drawArrElem(margins, margins + offset, elemWidth, elemHeight, i, Array.VSArray.data[i])
             i += 1
 
 

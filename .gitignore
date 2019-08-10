@@ -149,3 +149,6 @@ venv.bak/
 
 # docs folder
 doc/
+
+# IDE config folder
+.idea/
