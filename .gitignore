@@ -114,21 +114,5 @@ doc/
 # IDE config folder
 .idea/
 
-# Environment tools
-venv/lib/python3.7/site-packages/pip/
-venv/lib/python3.7/site-packages/pip-19.2.1.dist-info/
-venv/lib/python3.7/site-packages/pkg_resources/
-venv/lib/python3.7/site-packages/setuptools/
-venv/lib/python3.7/site-packages/setuptools-41.0.1.dist-info/
-venv/lib/python3.7/site-packages/easy-install.pth
-venv/lib/python3.7/site-packages/easy_install.py
-venv/lib/python3.7/site-packages/setuptools.pth
-venv/pip-selfcheck.json
-venv/lib64/python3.7/site-packages/pip/
-venv/lib64/python3.7/site-packages/pip-19.2.1.dist-info/
-venv/lib64/python3.7/site-packages/pkg_resources/
-venv/lib64/python3.7/site-packages/setuptools/
-venv/lib64/python3.7/site-packages/setuptools-41.0.1.dist-info/
-venv/lib64/python3.7/site-packages/easy-install.pth
-venv/lib64/python3.7/site-packages/easy_install.py
-venv/lib64/python3.7/site-packages/setuptools.pth
+# Environment
+venv/
