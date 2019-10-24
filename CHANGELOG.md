@@ -1,5 +1,13 @@
 # Change Log
 
+## 2019-10-23
+
+##### Changes
+
+- Removed license and released project into public domain
+- Created branch 'devel' from 'master'
+- Cleaned 'master' branch of obsolete code
+
 ## 2019-08-13
 
 ##### Changes
