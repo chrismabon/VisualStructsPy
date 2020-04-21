@@ -6,3 +6,4 @@ Users simply pass a list of data elements to the appropriate constructor functio
 populate a structure with that data. Note that trees have additional arguments to determine the manner
 in which nodes are added.
 """
+
